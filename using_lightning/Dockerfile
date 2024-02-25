@@ -4,4 +4,6 @@ RUN pip install poetry
 
 WORKDIR /code
 
+COPY pyproject.toml pyproject.toml
+
 RUN poetry install --no-root
