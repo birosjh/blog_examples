@@ -1,0 +1,6 @@
+[submodule "metric_tracking/restclient-cpp"]
+	path = metric_tracking/restclient-cpp
+	url = git@github.com:mrtazz/restclient-cpp.git
+[submodule "metric_tracking/json"]
+	path = metric_tracking/json
+	url = git@github.com:nlohmann/json.git
