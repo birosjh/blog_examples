@@ -4,3 +4,5 @@ __pycache__
 lightning_logs
 outputs
 data
+vcpkg
+vcpkg_installed
