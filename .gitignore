@@ -7,3 +7,4 @@ data
 vcpkg
 vcpkg_installed
 mlruns
+libtorch
