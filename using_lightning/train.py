@@ -1,3 +1,4 @@
+import torch
 import hydra
 from lightning.pytorch import Trainer
 
@@ -12,8 +13,11 @@ def train(config):
 
     model = ResnetLightningModule(config.model)
 
-    trainer = Trainer()
+    trainer = Trainer(**config.trainer)
     trainer.fit(model, datamodule)
+
+    input_sample = torch.ones(1, 3, 28, 28)
+    model.to_onnx("export.onnx", input_sample, export_params=True)
 
 
 if __name__ == "__main__":

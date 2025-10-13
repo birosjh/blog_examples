@@ -4,3 +4,10 @@ services:
     tty: true
     volumes:
     - .:/code
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
