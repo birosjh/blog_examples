@@ -23,9 +23,11 @@ class ResnetLightningModule(L.LightningModule):
 
         self.metric = Accuracy(task="multiclass", num_classes=config.num_classes)
 
+        self.training_loss = []
         self.training_outputs = []
         self.validation_outputs = []
 
+        self.validation_loss = []
         self.training_ground_truths = []
         self.validation_ground_truths = []
         
@@ -41,8 +43,7 @@ class ResnetLightningModule(L.LightningModule):
         output = self.model(inputs)
         loss = self.loss_function(output, target)
 
-        self.log("train_loss", loss)
-
+        self.training_loss.append(loss)
         self.training_outputs.append(output)
         self.training_ground_truths.append(target)
         
@@ -55,8 +56,11 @@ class ResnetLightningModule(L.LightningModule):
         accuracy = self.metric(all_preds, all_targets)
 
         self.log("train_accuracy", accuracy)
+        self.log("train_loss", sum(self.training_loss))
 
+        self.training_loss.clear()
         self.training_outputs.clear()
+        self.training_ground_truths.clear()
 
     
     def validation_step(self, batch, batch_idx):
@@ -64,8 +68,7 @@ class ResnetLightningModule(L.LightningModule):
         output = self.model(inputs)
         loss = self.loss_function(output, target)
 
-        self.log("val_loss", loss)
-
+        self.validation_loss.append(loss)
         self.validation_outputs.append(output)
         self.validation_ground_truths.append(target)
         
@@ -78,7 +81,9 @@ class ResnetLightningModule(L.LightningModule):
         accuracy = self.metric(all_preds, all_targets)
 
         self.log("val_accuracy", accuracy)
+        self.log("val_loss", sum(self.validation_loss))
 
+        self.validation_loss.clear()
         self.validation_outputs.clear()
         self.validation_ground_truths.clear()
 
