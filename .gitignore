@@ -8,3 +8,4 @@ vcpkg
 vcpkg_installed
 mlruns
 libtorch
+.DS_Store
